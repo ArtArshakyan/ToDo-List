@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+<script>
+    // let user = {
+    //     name: 'John',
+    //     surname: 'Smith',
+    //      getFullName: function(){
+
+    //         // const getName = function(){
+    //         //     return this.name;
+    //         // };
+
+    //         const getName = () => {
+    //             return this.name;
+    //         };
+
+    //         return getName() + ' ' + this.surname;
+    //      }
+    // }
+
+    // console.log(user.getFullName());
+
+    // let person = user;
+    // user = null;
+
+    // let cat = {
+    //     name: 'Kitty',
+    //     age: 3
+    // }
+
+    // console.log(person.getFullName());
+    // console.log(person.getFullName.call(cat));
+
+    class Animal{
+        constructor(species){
+            this.species = species;
+        }
+        sleep = () => 'sleeping...';
+        eat = () => 'eating...';
+        run(){
+            return 'runing...';
+        }
+
+        static animalType = 'mammal'
+    }
+
+    class Dog extends Animal{
+        constructor(name, age, sp){
+            super(sp);
+
+            this.name = name;
+            this.age = age;
+        }
+
+        // color = 'black';
+        // secondcolor = this.color;
+        // name = 'Doggy';
+        // color = 'black';
+        // age = 5;
+
+        static test = true;
+        greeting = function(){
+            return `Hello i am ${this.name}`;
+        };
+        // static greeting = function(){
+        //     return `Hello i am ${this.name}`;
+        // };
+    }
+
+    let dog = new Dog('Doggy', 5, 'dog');
+    console.log(dog);
+
+    class Cat extends Animal{
+        constructor(name, color){
+            super('cat');
+
+            this.name = name;
+            this.color = color;
+        }
+    }
+
+    const cat = new Cat('Kitty', 'white');
+    console.log(cat);
+
+</script>
+
+</body>
+</html>
