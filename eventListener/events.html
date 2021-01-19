@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <!-- <button id="submit" onclick="handleClick(event)">Click me</button> -->
+    <!-- <button id="submit">Click me</button> -->
+
+    <style>
+        .red{
+            background-color: red;
+            width: 500px;
+            height: 500px;
+        }
+        .green{
+            background-color: green;
+            width: 400px;
+            height: 400px;
+        }
+        .blue{
+            background-color: blue;
+            width: 300px;
+            height: 300px;
+        }
+    </style>
+
+    <div class="red">
+        <div class="green">
+            <div class="blue"></div>
+        </div>
+    </div>
+
+    <script>
+
+        const red = document.querySelector('.red');
+        const green = document.querySelector('.green');
+        const blue = document.querySelector('.blue');
+
+        red.onclick = (event) => {
+            console.log("target", event.target);
+            console.log("curentTarget", event.currentTarget);
+        }
+
+        green.onclick = (event) => {
+            console.log("target", event.target);
+            console.log("curentTarget", event.currentTarget);
+        }
+
+        blue.onclick = (event) => {
+            event.stopPropagation();
+            console.log("target", event.target);
+            console.log("curentTarget", event.currentTarget);
+        }
+
+        // event handler
+        // function handleClick(event){
+        //     console.log("Clicked", event.target);
+        // }
+
+        // const button = document.getElementById('submit');
+        
+        // button.addEventListener('click', handleClick);
+
+        // button.onclick = handleClick;
+
+    </script> 
+    
+</body>
+</html>
