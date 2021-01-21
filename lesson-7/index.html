@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        // Template literal
+        const str = `Hello I am a ${10+7} string`;
+        console.log(str);
+
+        // Rest/Spread operators (...)
+
+        // Rest operator
+        function sum(...c){
+            return c.reduce((accum, el, index, arr) => {
+                return accum + el;
+            }, 0);
+        }
+
+        let s = sum(4, 5, 8, 78);
+        console.log('s', s);
+
+        // Spread operator
+        let user = {
+            name: 'John',
+            age: 15
+        }
+
+        let info ={
+            address: 'unknown',
+            name: 'Alex'
+        }
+
+        let person = {
+            ...user,
+            ...info
+        }
+        // let person = Object.assign({}, user, info);
+        console.log(person);
+
+        let a = [1, 2, 3, 5, 4];
+        let b = [2, 8, 5, 6, 7];
+        let c = [...a, ...b];
+        console.log(c);
+
+        let min1 = Math.min(1, 2, 3);
+        console.log(min1);
+
+        let min2 = Math.min(...[1, 2, 3, 5]); // Spread operator
+        console.log(min2);
+
+        // Iterable object
+        let strArr = [...'qwertyu'];
+        console.log(strArr);
+
+        // Destructuring - array, object 
+
+        // array
+        let arr = [4, 2, 5, 6];
+        // let a = arr[0], b = arr[1], c = [2];
+
+        // let [a, b, c] = arr;
+        let [a1, b1, c1, d1] = [7, 8, 4, 6];
+
+        //object
+        let user2 ={
+            name2: 'John',
+            age2: 25
+        }
+
+        // let name = user.name;
+        let {name2, age2} = user2;
+
+        // let {name2} = user2.name2;  / undefined
+        console.log(name2, age2); 
+
+        let polygon = {
+            width: 1000,
+            length: 2000
+        }
+
+        // function getArea(obj){
+        //     let width = obj.width;
+        //     let length = obj.length;
+
+        //     return width * length;
+        // }
+
+        // function getArea(obj){
+        //     let {width, length} = obj;
+
+        //     return width * length;
+        // }
+
+        // function getArea({width, length}){
+        //     return width * length;
+        // }
+
+        const getArea = ({width, length}) => width * length;
+
+        console.log(getArea(polygon));
+
+
+        class Animal{ 
+            constructor(name, type){
+                this.name = name;
+                this.type = type;
+            }
+        }
+
+        class Dog extends Animal{
+            constructor(...props){
+                super(...props);
+                
+                console.log(props)
+                console.log(...props)
+            }
+        }
+
+        const dog = new Dog('Tyson', 'pit');
+        console.log(dog);
+
+    </script>
+</body>
+</html>
