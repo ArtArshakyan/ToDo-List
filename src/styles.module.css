@@ -1,0 +1,10 @@
+.name {
+  font-size: 64px;
+  color: #500;
+}
+.name > span {
+  color: blue;
+}
+.block {
+  width: 300px;
+}
