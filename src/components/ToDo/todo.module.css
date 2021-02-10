@@ -1,0 +1,9 @@
+.selected {
+  color: brown;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.myCol {
+  border: 1px solid blue;
+}

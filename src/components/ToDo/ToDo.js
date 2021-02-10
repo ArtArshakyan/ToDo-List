@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
+import styles from './todo.module.css'
 
 class ToDo extends Component {
     state = {
@@ -30,7 +32,20 @@ class ToDo extends Component {
     render() {
         const { tasks, inputValue } = this.state;
         const taskComponents = tasks.map((task, index) => {
-            return <li key={index}>{task}</li>;
+
+            return (
+                <Col
+                    key={index}
+                    className={styles.myCol}
+                    xs={12}
+                    sm={6}
+                    md={4}
+                    lg={3}
+                    xl={2}
+                >
+                    <div className={styles.selected}>{task}</div>
+                </Col>
+            );
         });
 
         return (
@@ -48,9 +63,11 @@ class ToDo extends Component {
                     Add New Task
                 </button>
 
-                <ol>
-                    {taskComponents}
-                </ol>
+                <Container>
+                    <Row className='justify-content-center'>
+                        {taskComponents}
+                    </Row>
+                </Container>
             </div>
         );
     };
