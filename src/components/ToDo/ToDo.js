@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
-import styles from './todo.module.css'
+import { Container, Row, Col, Card, Button, InputGroup, FormControl } from 'react-bootstrap';
+import styles from './todo.module.css';
+import idGenerator from '../../helpers/idGenerator';
 
 class ToDo extends Component {
     state = {
         inputValue: '',
-        tasks: []
+        tasks: [],
     };
 
-    handleChange = (event) => {
+    handleChange = event => {
         this.setState({
-            inputValue: event.target.value
+            inputValue: event.target.value,
         });
     };
 
@@ -21,55 +22,91 @@ class ToDo extends Component {
             return;
         }
 
-        const tasks = [...this.state.tasks, inputValue];
+        const newTask = {
+            _id: idGenerator(),
+            title: inputValue,
+        };
+
+        const tasks = [...this.state.tasks, newTask];
 
         this.setState({
             tasks,
-            inputValue: ''
+            inputValue: '',
+        });
+    };
+
+    deleteTask = (taskId) => {
+        const newTasks = this.state.tasks.filter((task) => taskId !== task._id);
+
+        this.setState({
+            tasks: newTasks
         });
     };
 
     render() {
         const { tasks, inputValue } = this.state;
-        const taskComponents = tasks.map((task, index) => {
 
+        const taskComponents = tasks.map(task => {
             return (
                 <Col
-                    key={index}
-                    className={styles.myCol}
+                    key={task._id}
                     xs={12}
                     sm={6}
                     md={4}
                     lg={3}
                     xl={2}
                 >
-                    <div className={styles.selected}>{task}</div>
+                    <Card className={styles.task}>
+                        <Card.Body>
+                            <Card.Title>{task.title}</Card.Title>
+                            <Card.Text>
+                                Some quick example text to build on the card title
+                            </Card.Text>
+                            <Button
+                                variant="danger"
+                                onClick={() => this.deleteTask(task._id)}
+                            >
+                                Delete
+                            </Button>
+                        </Card.Body>
+                    </Card>
                 </Col>
             );
         });
 
         return (
             <div>
-                <h2>ToDo List</h2>
-                <input
-                    type="text"
-                    value={inputValue}
-                    onChange={this.handleChange}
-                />
-
-                <button
-                    onClick={this.addTask}
-                >
-                    Add New Task
-                </button>
-
                 <Container>
-                    <Row className='justify-content-center'>
-                        {taskComponents}
+                    <Row>
+                        <Col
+                            xs={12}
+                        >
+                            <h2>ToDo List</h2>
+                        </Col>
+                        <Col
+                            xs={12}
+                        >
+                            <InputGroup>
+                                <FormControl
+                                    placeholder="Create your tasks"
+                                    value={inputValue}
+                                    onChange={this.handleChange}
+                                />
+                                <InputGroup.Append>
+                                    <Button
+                                        variant="outline-primary"
+                                        onClick={this.addTask}
+                                    >
+                                        Add New Task
+                                    </Button>
+                                </InputGroup.Append>
+                            </InputGroup>
+                        </Col>
                     </Row>
+                    <Row>{taskComponents}</Row>
                 </Container>
             </div>
         );
-    };
+    }
 }
 export default ToDo;
