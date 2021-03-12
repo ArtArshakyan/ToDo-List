@@ -1,38 +1,20 @@
 import React, { Component } from 'react';
-import { Container, Row, Col, Card, Button, InputGroup, FormControl } from 'react-bootstrap';
+import { Container, Row, Col, Button } from 'react-bootstrap';
+import Task from '../Task/Task';
+import NewTask from '../NewTask/NewTask';
 import styles from './todo.module.css';
-import idGenerator from '../../helpers/idGenerator';
 
 class ToDo extends Component {
     state = {
-        inputValue: '',
         tasks: [],
         selectedTasks: new Set()
     };
 
-    handleChange = event => {
-        this.setState({
-            inputValue: event.target.value,
-        });
-    };
-
-    addTask = () => {
-        const inputValue = this.state.inputValue.trim();
-
-        if (!inputValue) {
-            return;
-        }
-
-        const newTask = {
-            _id: idGenerator(),
-            title: inputValue,
-        };
-
+    addTask = (newTask) => {
         const tasks = [...this.state.tasks, newTask];
 
         this.setState({
-            tasks,
-            inputValue: '',
+            tasks
         });
     };
 
@@ -75,14 +57,8 @@ class ToDo extends Component {
         });
     };
 
-    handleKeyDown = (event) => {
-        if (event.key === 'Enter') {
-            this.addTask();
-        }
-    }
-
     render() {
-        const { tasks, inputValue, selectedTasks } = this.state;
+        const { tasks, selectedTasks } = this.state;
 
         const taskComponents = tasks.map(task => {
             return (
@@ -94,25 +70,12 @@ class ToDo extends Component {
                     lg={3}
                     xl={2}
                 >
-                    <Card className={styles.task}>
-                        <Card.Body>
-                            <input
-                                type="checkbox"
-                                onChange={() => this.toggleTask(task._id)}
-                            />
-                            <Card.Title>{task.title}</Card.Title>
-                            <Card.Text>
-                                Some quick example text to build on the card title
-                            </Card.Text>
-                            <Button
-                                variant="danger"
-                                onClick={() => this.deleteTask(task._id)}
-                                disabled={!!selectedTasks.size}
-                            >
-                                Delete
-                            </Button>
-                        </Card.Body>
-                    </Card>
+                    <Task
+                        data={task}
+                        onToggle={this.toggleTask}
+                        disabled={!!selectedTasks.size}
+                        onDelete={this.deleteTask}
+                    />
                 </Col>
             );
         });
@@ -129,24 +92,10 @@ class ToDo extends Component {
                         <Col
                             xs={12}
                         >
-                            <InputGroup>
-                                <FormControl
-                                    placeholder="Create your tasks"
-                                    value={inputValue}
-                                    onChange={this.handleChange}
-                                    disabled={!!selectedTasks.size}
-                                    onKeyDown={this.handleKeyDown}
-                                />
-                                <InputGroup.Append>
-                                    <Button
-                                        variant="outline-primary"
-                                        onClick={this.addTask}
-                                        disabled={!!selectedTasks.size}
-                                    >
-                                        Add New Task
-                                    </Button>
-                                </InputGroup.Append>
-                            </InputGroup>
+                            <NewTask
+                                disabled={!!selectedTasks.size}
+                                onAdd={this.addTask}
+                            />
                         </Col>
                     </Row>
                     <Row>
