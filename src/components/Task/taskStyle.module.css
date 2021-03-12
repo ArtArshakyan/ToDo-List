@@ -1,0 +1,7 @@
+.task {
+  margin: 15px 0;
+  border: 1px solid blue;
+}
+.selected {
+  border: 1px solid red;
+}
