@@ -1,22 +1,16 @@
 import React, { Component } from 'react';
 import { FormControl, Button, Modal } from 'react-bootstrap';
-import idGenerator from '../../helpers/idGenerator';
 import PropTypes from 'prop-types';
 
-class NewTask extends Component {
-    state = {
-        title: '',
-        description: ''
+class EditTaskModal extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            ...props.data
+        };
+
     };
 
-    /* Variant 1 */
-    // handleChange = (value, name) => {
-    //     this.setState({
-    //         [name]: value
-    //     });
-    // };
-
-    /* Variant 2 */
     handleChange = (event) => {
         const { name, value } = event.target
         this.setState({
@@ -38,17 +32,16 @@ class NewTask extends Component {
             return;
         }
 
-        const newTask = {
-            _id: idGenerator(),
+        this.props.onSave({
+            _id: this.state._id,
             title,
             description
-        };
-
-        this.props.onAdd(newTask);
+        });
     };
 
     render() {
         const { onClose } = this.props;
+        const { title, description } = this.state;
 
         return (
             <Modal
@@ -60,15 +53,15 @@ class NewTask extends Component {
             >
                 <Modal.Header closeButton>
                     <Modal.Title id="contained-modal-title-vcenter">
-                        Add New Task
+                        Edit Task
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <FormControl
                         className="mb-3"
                         placeholder="Title"
-                        name='title'
-                        // onChange={(event) => this.handleChange(event.target.value, 'title')}
+                        name="title"
+                        value={title}
                         onChange={this.handleChange}
                         onKeyPress={this.handleKeyPress}
                     />
@@ -76,8 +69,8 @@ class NewTask extends Component {
                         placeholder="Description"
                         as="textarea"
                         rows={5}
-                        name='description'
-                        // onChange={(event) => this.handleChange(event.target.value, 'description')}
+                        name="description"
+                        value={description}
                         onChange={this.handleChange}
                     />
                 </Modal.Body>
@@ -86,7 +79,7 @@ class NewTask extends Component {
                         onClick={this.handleSubmit}
                         variant="success"
                     >
-                        Add
+                        Save
                     </Button>
                     <Button onClick={onClose}>Cancel</Button>
                 </Modal.Footer>
@@ -95,9 +88,10 @@ class NewTask extends Component {
     }
 }
 
-NewTask.propTypes = {
+EditTaskModal.propTypes = {
+    data: PropTypes.object.isRequired,
     onClose: PropTypes.func.isRequired,
-    onAdd: PropTypes.func.isRequired
+    onSave: PropTypes.func.isRequired
 };
 
-export default NewTask;
+export default EditTaskModal;
