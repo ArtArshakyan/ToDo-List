@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Card, Button } from 'react-bootstrap';
 import styles from './taskStyle.module.css';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faEdit } from '@fortawesome/free-solid-svg-icons';
 
-class Task extends Component {
+class Task extends PureComponent {
 
     handleChange = () => {
         const { onToggle, data } = this.props;
