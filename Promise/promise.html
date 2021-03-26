@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <script>
+      function sum(a, b) {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            if (typeof a === 'number' && typeof b === 'number') {
+              resolve(a + b);
+            } else {
+              reject('Please input only nubers');
+            }
+          }, 2000);
+        });
+      }
+
+      function sqrt(x) {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            if (typeof x === 'number') {
+              const result = Math.sqrt(x);
+              resolve(result);
+            } else {
+              reject('Please input only nubers');
+            }
+          }, 1000);
+        });
+      }
+
+      //   async function prom() {
+      //     const s = await sum(20, 80);
+      //     const sq = await sqrt(s);
+      //     console.log('Sum then 1', s);
+      //     console.log('sq', sq);
+      //     return sq;
+      //   }
+
+      //   try {
+      //     const res = prom();
+      //     // console.log('res', res);
+      //   } catch (error) {
+      //     console.log('error', error);
+      //   }
+
+      sum(20, 80)
+        .then(async s => {
+          console.log('s', s);
+          const sq = await sqrt(s);
+          console.log('sq', sq);
+        })
+        .catch(error => {
+          console.log('error', error);
+        });
+
+      //   sum(10, 90)
+      //     .then(s => {
+      //       console.log('Sum then 2', s);
+
+      //       return sqrt(s);
+      //       // .then(res => {
+      //       //   console.log('Sqrt then', res);
+      //       // })
+      //       // .catch(error => {
+      //       //   console.log('Sqrt error', error);
+      //       // });
+      //     })
+      //     .then(res => {
+      //       console.log('Sqrt then', res);
+      //     })
+      //     .catch(error => {
+      //       console.log('error', error);
+      //     });
+
+      //    const s = sum(10, 20);
+      //    console.log('s', s);
+
+      //    s.then((res) => {
+      //         console.log('then 1', res);
+      //         return 'Hellow';
+      //    })
+      //    .then((res) => {
+      //         console.log('then 2', res);
+      //         return true;
+      //    })
+      //    .catch((error) => {
+      //        console.log('error', error);
+      //        return null
+      //    })
+      //    .then((res) => {
+      //         console.log('then 3', res);
+      //    })
+
+      //    console.log('finish--------');
+    </script>
+  </body>
+</html>
